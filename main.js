@@ -8,6 +8,7 @@ app.use(express.json());
 
 app.get('/api', (req, res) => {
     res.json({message: 'Hello from Node.js the other side!'});
+    console.log('We are connected')
 });
 
 const PORT = 5000;

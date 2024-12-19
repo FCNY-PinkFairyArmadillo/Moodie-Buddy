@@ -18,10 +18,15 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Moodie Buddy API');
 });
 
+
 //Define /login route to send the index.html file
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
+
+  app.get('/Journal',(req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  })
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

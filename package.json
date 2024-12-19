@@ -7,7 +7,7 @@
     "start": "concurrently \"node server/main.js\" \"webpack serve --mode development --open\"",
     "build": "webpack --mode production"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "http://localhost:5001",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",

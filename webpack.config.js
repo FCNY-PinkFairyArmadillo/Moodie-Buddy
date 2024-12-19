@@ -8,12 +8,14 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "public"),
     filename: "./bundle.js",
+    publicPath: '/',
   },
   target: "web",
   devServer: {
     port: "3000",
     static: path.resolve(__dirname, "public"),
     open: true,
+    historyApiFallback: true
   },
   resolve: {
     extensions: [".js", ".jsx", ".json"],

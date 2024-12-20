@@ -23,7 +23,7 @@ function SignUp() {
     e.preventDefault();
     console.log('Email:', email);
     console.log('Password:', password);
-    console.log('Retype Password', retypePassword);
+    console.log('Retype Password:', retypePassword);
   };
 
   //return statement for the login page

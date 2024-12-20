@@ -7,7 +7,7 @@ Jocelyn R.
 Technical Challenges: N/A
 */
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 //Create a function for the sign up page
 function SignUp() {
@@ -15,67 +15,121 @@ function SignUp() {
   const [email, setEmail] = useState('');
   // react - set password
   const [password, setPassword] = useState('');
-  // react - set password again for retyping
-  const [retypePassword, setRetypePassword] = useState('');
+
 
   //create an async function
   const handleSubmit = (e) => {
+    let formData = {
+      "email": email,
+      "password": password
+    }
     e.preventDefault();
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Retype Password', retypePassword);
+      fetch('http://localhost:5001/api/users/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(`data: ${data.message}`);
+        if (data.message === "User already exists") {
+          alert(`${data.message}`);
+        } 
+       
+      })
+      .catch((error) => {
+        console.log(`error: ${error}`);
+      })
   };
 
   //return statement for the login page
   return (
-    <div style={{ maxWidth: '400px', margin: 'auto' }}>
-      <h2>Sign Up Page </h2>
-
+    <div style={{
+      maxWidth: '400px',
+      margin: '2rem auto',
+      padding: '1.5rem',
+      border: '1px solid #ccc',
+      borderRadius: '8px',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      backgroundColor: '#f9f9f9'
+    }}>
+      <h2 style={{
+        textAlign: 'center',
+        marginBottom: '1.5rem',
+        color: '#333',
+        fontFamily: 'Arial, sans-serif'
+      }}>Sign Up Page</h2>
+  
       {/* email area created */}
       <form onSubmit={handleSubmit}>
-        <div style={{ marginBottem: '1rem' }}>
-          <label htmlFor='email'> Email </label>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <label htmlFor='email' style={{
+            display: 'inline-block',
+            width: '80px',
+            fontWeight: 'bold',
+            color: '#555'
+          }}>Email:</label>
           <input
             type='email'
             id='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ marginLeft: '0.5rem' }}
+            style={{
+              padding: '0.5rem',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              width: 'calc(100% - 90px)', // adjusts for label width
+              boxSizing: 'border-box'
+            }}
           />
         </div>
-
-        {/* password area created*/}
-        <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor='password'>Password</label>
+  
+        {/* password area created */}
+        <div style={{ marginBottom: '1.5rem' }}>
+          <label htmlFor='password' style={{
+            display: 'inline-block',
+            width: '80px',
+            fontWeight: 'bold',
+            color: '#555'
+          }}>Password:</label>
           <input
             type='password'
             id='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ marginLeft: '0.5rem' }}
+            style={{
+              padding: '0.5rem',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+              width: 'calc(100% - 90px)', // adjusts for label width
+              boxSizing: 'border-box'
+            }}
           />
         </div>
-
-        {/* retype password area created */}
-        <div style={{ marginBottom: '1rem' }}>
-          <label htmlFor='RetypePassword'>Password</label>
-          <input
-            type='RetypePassword'
-            id='Retype Password'
-            value={retypePassword}
-            onChange={(e) => setRetypePassword(e.target.value)}
-            required
-            style={{ marginLeft: '0.5rem' }}
-          />
-        </div>
-
-        {/*  submit button created */}
-        <button type='submit'>Submit</button>
+  
+        <button type='submit' style={{
+          display: 'block',
+          width: '100%',
+          padding: '0.75rem',
+          backgroundColor: '#007bff',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '4px',
+          fontWeight: 'bold',
+          cursor: 'pointer',
+          fontSize: '1rem',
+          textAlign: 'center'
+        }}>Submit</button>
       </form>
     </div>
   );
+  
 }
 
 export default SignUp;
